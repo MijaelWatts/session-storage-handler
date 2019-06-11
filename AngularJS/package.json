@@ -1,0 +1,27 @@
+{
+  "name": "angularjs",
+  "version": "1.0.0",
+  "description": "Session storage handler using angularjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "angularjs",
+    "user-session"
+  ],
+  "author": "MW",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "^1.7.8"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.7.8",
+    "jasmine": "^3.4.0",
+    "karma": "^4.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-firefox-launcher": "^1.1.0",
+    "karma-ie-launcher": "^1.0.0",
+    "live-server": "^1.2.1"
+  }
+}
