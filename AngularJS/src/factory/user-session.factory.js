@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$sessionStorage', 'UserSessionConstant', function ($sessionStorage, UserSessionConstant) {
+angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$sessionStorage', function ($sessionStorage) {
 
     /**
      * This variable helps to decouple each function below that uses $sesionStorage
@@ -8,7 +8,6 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
      * We just mock up any obj with the $sessionStorage structure
      */
     var sessionStorage = $sessionStorage;
-    var sessionConstant = UserSessionConstant; // Assigning dependency to variable for loosing coupling.
 
     // ------------------------------------------------------------------------------------------------------------
 
@@ -304,17 +303,6 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
     // ------------------------------------------------------------------------------------------------------------
 
     /**
-     * Function for allowing access to the constants related with this component.
-     * This is done for avoiding the injection of too many dependencies in any place.
-     * If any controller implements this factory, automatically gets access to the constants needed.
-     *
-     * @returns {object} with the constants related to the component 
-     */
-    var getUserSessionConstant = function () {
-        return sessionConstant;
-    };
-
-    /**
      * Function for knowing whether the property desired is in a nested or not nested object.
      * Once it is known it's a nested or nor nested property, a specific function is called.
      * Will return the property desired.
@@ -405,11 +393,10 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
     // ------------------------------------------------------------------------------------------------------------
 
     return {
-        getUserSessionConstant : getUserSessionConstant,
-        getUserSession         : getUserSession,
-        setUserSession         : setUserSession,
-        deleteUserSession      : deleteUserSession,
-        clearUserSession       : clearUserSession
+        getUserSession    : getUserSession,
+        setUserSession    : setUserSession,
+        deleteUserSession : deleteUserSession,
+        clearUserSession  : clearUserSession
     };
 
 }]);
