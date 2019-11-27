@@ -10,14 +10,21 @@
 
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../node_modules/angular/angular.min.js"></script>
+
+    <script src="module.js"></script>
+    <script src="controller/store.controller.js"></script>
 </head>
-<body>
+
+<body ng-app="userSessionHandlerApp">
     <header style="background-color: greenyellow; text-align: center;">
         Angular JS User Session Handler
     </header>
 
     <section class="container row" style="margin: 1%;">
-        <section class="col-md-8">
+        <section class="col-md-8"
+            ng-controller="StoreController as storeCtrl">
+
             <div>
                 <span>Write the structure of the object:</span>
                 <br />

@@ -4,7 +4,8 @@
   "description": "Session storage handler using angularjs",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test-jasmine": "live-server --open=spec/spec-runner.html",
+    "test-karma": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "angularjs",
