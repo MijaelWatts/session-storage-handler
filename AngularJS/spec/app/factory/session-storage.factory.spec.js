@@ -1,6 +1,6 @@
 // Test agains getting undefined or null values from the UserSession
 // Test agains setting undefined. What should happen?
-describe("UserSessionFactory Suite", function () {
+describe("SessionStorageFactory Suite", function () {
 
     'use strict';
 
@@ -10,13 +10,13 @@ describe("UserSessionFactory Suite", function () {
     var JS_OBJECT = { obj1: { obj2: { prop1: 'String value.' } } };
 
     beforeEach(function() {
-        module('userSessionHandlerApp', function($provide) {
+        module('sessionStorageHandlerApp', function($provide) {
             $provide.value('$sessionStorage', { userSession: {} });
         });
 
-        inject(function(_UserSessionFactory_, _UserSessionConstant_) {
-            dpndncy.usrSessFcty  = _UserSessionFactory_;
-            dpndncy.usrSessConst = _UserSessionConstant_;
+        inject(function(_SessionStorageFactory_, _SessionStorageConstant_) {
+            dpndncy.sessionFcty  = _SessionStorageFactory_;
+            dpndncy.sessionConst = _SessionStorageConstant_;
         });
     });
 
@@ -24,18 +24,18 @@ describe("UserSessionFactory Suite", function () {
         it("It must return undefined when getting non existing properties.", function() {
             var valueFromSession;
             
-            valueFromSession= dpndncy.usrSessFcty.getUserSession(NOT_EXISTING_PROPERTY);
+            valueFromSession= dpndncy.sessionFcty.getSession(NOT_EXISTING_PROPERTY);
             expect(valueFromSession).toBeUndefined();
         });
 
         it("It must set a string in a property.", function() {
             var valueFromSession;
 
-            valueFromSession = dpndncy.usrSessFcty.getUserSession(dpndncy.usrSessConst.NOT_NESTED_PROPERTY);
+            valueFromSession = dpndncy.sessionFcty.getSession(dpndncy.sessionConst.NOT_NESTED_PROPERTY);
             expect(valueFromSession).toBeUndefined();
 
-            dpndncy.usrSessFcty.setUserSession(dpndncy.usrSessConst.NOT_NESTED_PROPERTY, STRING_VALUE);
-            valueFromSession = dpndncy.usrSessFcty.getUserSession(dpndncy.usrSessConst.NOT_NESTED_PROPERTY);
+            dpndncy.sessionFcty.setSession(dpndncy.sessionConst.NOT_NESTED_PROPERTY, STRING_VALUE);
+            valueFromSession = dpndncy.sessionFcty.getSession(dpndncy.sessionConst.NOT_NESTED_PROPERTY);
             
             expect(valueFromSession).toBeDefined();
             expect(valueFromSession).toEqual(STRING_VALUE);
@@ -44,11 +44,11 @@ describe("UserSessionFactory Suite", function () {
         it("It must set an object in a property.", function() {
             var valueFromSession;
 
-            valueFromSession = dpndncy.usrSessFcty.getUserSession(dpndncy.usrSessConst.NOT_NESTED_PROPERTY);
+            valueFromSession = dpndncy.sessionFcty.getSession(dpndncy.sessionConst.NOT_NESTED_PROPERTY);
             expect(valueFromSession).toBeUndefined();
 
-            dpndncy.usrSessFcty.setUserSession(dpndncy.usrSessConst.NOT_NESTED_PROPERTY, JS_OBJECT);
-            valueFromSession = dpndncy.usrSessFcty.getUserSession(dpndncy.usrSessConst.NOT_NESTED_PROPERTY);
+            dpndncy.sessionFcty.setSession(dpndncy.sessionConst.NOT_NESTED_PROPERTY, JS_OBJECT);
+            valueFromSession = dpndncy.sessionFcty.getSession(dpndncy.sessionConst.NOT_NESTED_PROPERTY);
             
             expect(valueFromSession).toBeDefined();
             expect(valueFromSession).toEqual(JS_OBJECT);
@@ -57,17 +57,17 @@ describe("UserSessionFactory Suite", function () {
         it("It must update an existing property.", function() {
             var valueFromSession;
 
-            valueFromSession = dpndncy.usrSessFcty.getUserSession(dpndncy.usrSessConst.NOT_NESTED_PROPERTY);
+            valueFromSession = dpndncy.sessionFcty.getSession(dpndncy.sessionConst.NOT_NESTED_PROPERTY);
             expect(valueFromSession).toBeUndefined();
 
-            dpndncy.usrSessFcty.setUserSession(dpndncy.usrSessConst.NOT_NESTED_PROPERTY, STRING_VALUE);
-            valueFromSession = dpndncy.usrSessFcty.getUserSession(dpndncy.usrSessConst.NOT_NESTED_PROPERTY);
+            dpndncy.sessionFcty.setSession(dpndncy.sessionConst.NOT_NESTED_PROPERTY, STRING_VALUE);
+            valueFromSession = dpndncy.sessionFcty.getSession(dpndncy.sessionConst.NOT_NESTED_PROPERTY);
             
             expect(valueFromSession).toBeDefined();
             expect(valueFromSession).toEqual(STRING_VALUE);
 
-            dpndncy.usrSessFcty.setUserSession(dpndncy.usrSessConst.NOT_NESTED_PROPERTY, JS_OBJECT);
-            valueFromSession = dpndncy.usrSessFcty.getUserSession(dpndncy.usrSessConst.NOT_NESTED_PROPERTY);
+            dpndncy.sessionFcty.setSession(dpndncy.sessionConst.NOT_NESTED_PROPERTY, JS_OBJECT);
+            valueFromSession = dpndncy.sessionFcty.getSession(dpndncy.sessionConst.NOT_NESTED_PROPERTY);
             
             expect(valueFromSession).toBeDefined();
             expect(valueFromSession).toEqual(JS_OBJECT);

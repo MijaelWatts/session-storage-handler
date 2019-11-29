@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$sessionStorage', function ($sessionStorage) {
+angular.module('sessionStorageHandlerApp').factory('SessionStorageFactory', ['$sessionStorage', function ($sessionStorage) {
 
     /**
      * This variable helps to decouple each function below that uses $sesionStorage
@@ -36,7 +36,7 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
      * @param {string} propToGet, the name of the property to get 
      * @returns {string | object} that tells the actual value of the property
      */
-    function getUserSessionProperty(propToGet) {
+    function getSessionProperty(propToGet) {
         try {
             return sessionStorage.userSession[propToGet];
         } catch (error) {
@@ -47,7 +47,7 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
     // ------------------------------------------------------------------------------------------------------------
 
     /**
-     * Function for helping getUserSessionNestedProperty();
+     * Function for helping getSessionNestedProperty();
      * If the obj is undefined get the top level object from $sessionStorage.userSession object.
      * If the obj is not undefined, use the partial view of the $sessionStorage.userSession object received in the obj parameter.
      * 
@@ -59,7 +59,7 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
         var property;
 
         if (obj === undefined) {
-            property = getUserSessionProperty(prop);
+            property = getSessionProperty(prop);
         } else {
             property = obj[prop];
         }
@@ -75,7 +75,7 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
      * @param {string} propToGet, is a string that represents an object within $sessionStorage.userSession
      * @returns {string | object} it can return a string or an object, depends on what's at the bottom of the object. 
      */
-    function getUserSessionNestedProperty(propToGet) {
+    function getSessionNestedProperty(propToGet) {
         var value, index;
         var arrayOfProperties = propToGet.split(".");
 
@@ -98,7 +98,7 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
      * @param {string} propToSet, name of the property to set 
      * @param {string | object} value, is the value to set to the property 
      */
-    function setUserSessionProperty(propToSet, value) {
+    function setSessionProperty(propToSet, value) {
         sessionStorage.userSession[propToSet] = value;
     }
 
@@ -117,7 +117,7 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
         var objToReturn;
 
         if (obj === undefined) {
-            objToReturn = getUserSessionProperty(property);
+            objToReturn = getSessionProperty(property);
         } else {
             if (obj[property] === undefined) {
                 obj[property] = value;
@@ -149,10 +149,10 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
 
         if (obj === undefined) {
             if (sessionStorage.userSession[property] === undefined) {
-                setUserSessionProperty(property, {});
+                setSessionProperty(property, {});
             }
 
-            objToReturn = getUserSessionProperty(property);
+            objToReturn = getSessionProperty(property);
         } else {
             if (value === undefined) {
                 if (obj[property] === undefined) {
@@ -187,7 +187,7 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
         var objToReturn;
 
         if (obj === undefined) {
-            objToReturn = getUserSessionProperty(property);
+            objToReturn = getSessionProperty(property);
         } else {
             if (value === undefined) {
                 objToReturn = obj[property];
@@ -232,7 +232,7 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
      * @param {string} objectAsString, is an object represented as a string 'obj1.obj2.property1'
      * @param {string | object} value, can be a string or an object that will be set to the propToSet
      */
-    function setUserSessionNestedProperty(objectAsString, value) {
+    function setSessionNestedProperty(objectAsString, value) {
         var index;
         var callback;
         var inLastIndex;
@@ -243,7 +243,7 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
         for (index = 0; index < arrayOfProperties.length; index++) {
             propToGet += arrayOfProperties[index]; // Will be composing the representation of the object in each round
             inLastIndex = (index === arrayOfProperties.length - 1) ? true : false;
-            propertyDefined = getUserSessionNestedProperty(propToGet) === undefined ? true : false;
+            propertyDefined = getSessionNestedProperty(propToGet) === undefined ? true : false;
 
             if (inLastIndex) {
                 if (propertyDefined) {
@@ -311,16 +311,16 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
      * @param {string} propToGet, the name of the property to get. 
      * @returns {string | object} the value of the property.
      */
-    var getUserSession = function (propToGet) {
+    var getSession = function (propToGet) {
         var property;
 
         if (propToGet !== undefined) {
             var nestedProperty = validateIfPropertyIsNested(propToGet);
 
             if (nestedProperty) {
-                property = getUserSessionNestedProperty(propToGet);
+                property = getSessionNestedProperty(propToGet);
             } else {
-                property = getUserSessionProperty(propToGet);
+                property = getSessionProperty(propToGet);
             }
         }
 
@@ -334,13 +334,13 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
      * @param {string} propToSet, the property name desired to set. e.g. 'property1' or 'obj1.obj2.property1' 
      * @param {string | object} value, the value to set to the property. e.g. 'generic text' or 'obj1: {obj2: { status: true }}'
      */
-    var setUserSession = function (propToSet, value) {
+    var setSession = function (propToSet, value) {
         var nestedProperty = validateIfPropertyIsNested(propToSet);
 
         if (nestedProperty) {
-            setUserSessionNestedProperty(propToSet, value);
+            setSessionNestedProperty(propToSet, value);
         } else {
-            setUserSessionProperty(propToSet, value);
+            setSessionProperty(propToSet, value);
         }
     };
 
@@ -352,7 +352,7 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
      */
     function validateIfPropertyIsDefined(propertyToCheck) {
         var isDefined = false;
-        var property = getUserSession(propertyToCheck);
+        var property = getSession(propertyToCheck);
 
         if (property !== undefined) {
             isDefined = true;
@@ -393,8 +393,8 @@ angular.module('userSessionHandlerApp').factory('UserSessionFactory', ['$session
     // ------------------------------------------------------------------------------------------------------------
 
     return {
-        getUserSession    : getUserSession,
-        setUserSession    : setUserSession,
+        getSession    : getSession,
+        setSession    : setSession,
         deleteUserSession : deleteUserSession,
         clearUserSession  : clearUserSession
     };

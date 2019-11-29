@@ -1,1 +1,1 @@
-angular.module('userSessionHandlerApp', []);
+angular.module('sessionStorageHandlerApp', []);

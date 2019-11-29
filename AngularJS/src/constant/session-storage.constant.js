@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('userSessionHandlerApp').constant('UserSessionConstant', {
+angular.module('sessionStorageHandlerApp').constant('SessionStorageConstant', {
     NOT_NESTED_PROPERTY: 'github',
     NESTED: 'github.mijaelWatts'
 })

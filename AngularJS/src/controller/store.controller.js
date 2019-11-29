@@ -1,5 +1,5 @@
 'use strict';
 
-angular.module('userSessionHandlerApp').controller('StoreController' ,[function() {
+angular.module('sessionStorageHandlerApp').controller('StoreController' ,[function() {
     var storeCtrl = this;
 }]);
